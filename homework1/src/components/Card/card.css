@@ -1,0 +1,18 @@
+span {}
+
+.card{
+    margin: 1px;
+    padding: 10px;
+}
+
+.col-3{
+    max-width: 24%;
+}
+
+.card:hover{
+    box-shadow: 0 0 10px rgba(6, 194, 100, 0.5);
+}
+
+.selected{
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
