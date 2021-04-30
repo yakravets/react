@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Card from "../Card";
 import AddItem from "../AddItem";
+import Navbar from "../NavBar";
+import Header from "../Header";
 
 export default class App extends Component {
   state = {
@@ -85,9 +87,9 @@ export default class App extends Component {
 
   onAdd = () => {
     let newIndex = Math.max.apply(Math, this.state.data.map(function (o) { return o.id; })) + 1;
-    this.setState(({data}) => {
+    this.setState(({ data }) => {
       return {
-        data:[...data, {
+        data: [...data, {
           id: newIndex,
           name: `Ivanko ${newIndex}`,
           age: Math.floor(Math.random() * 80),
@@ -100,9 +102,19 @@ export default class App extends Component {
     });
   };
 
+  search = (text) => {
+    console.log(text);
+  }
+
   render() {
     return (
       <div className="container">
+        <Navbar
+          searchAction={() => this.search(test)} />
+        <Header
+          countContacts={this.state.data.length}
+          countFavorites={this.state.data.filter(x => x.favourite == true).length}
+        />
         <div className="row">{this.getUsers()}</div>
         <AddItem
           onAdd={() => this.onAdd()} />

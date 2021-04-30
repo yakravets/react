@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import Info from "../Info";
-import Header from "../Header";
+import HeaderCard from "../HeaderCard";
 import Controls from "../Controls";
 
 import "./card.css";
@@ -27,7 +27,7 @@ export default class Card extends Component {
     const { id } = this.props;
     return (
       <div className= {this.state.className}>
-        <Header name={this.props.name} />
+        <HeaderCard name={this.props.name} />
         <h2>Age: {this.props.age}</h2>
         <Info name={this.props.age} />
         <Controls
