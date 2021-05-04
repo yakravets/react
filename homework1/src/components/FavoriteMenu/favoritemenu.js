@@ -3,15 +3,16 @@ import './favoritemenu.css'
 
 export default class FavoriteMenu extends Component {
     state = {
-        enabled: false
+        onlyFavorite: false
     }
 
-    onFavoriteChange = () => {
+    onFavoriteChange = (e) => {
+        e.preventDefault();
+        let newValue = !this.state.onlyFavorite;
         this.setState(
-            { enabled: !this.state.enabled }
+            { onlyFavorite: newValue }
         );
-
-        this.props.favoriteAction(this.state.enabled);
+        this.props.favoriteAction(newValue);
     }
 
     render() {
@@ -21,7 +22,7 @@ export default class FavoriteMenu extends Component {
                     type="button"
                     className="btn btn-outline-warning col-2"
                     onClick={this.onFavoriteChange}>
-                        <i className={ this.state.enabled == true? "far fa-star": "fas fa-star"}></i> Favorite
+                        <i className={ this.state.onlyFavorite == true ? "fas fa-star":"far fa-star"}></i> Favorite
                 </button>
             </>
         )

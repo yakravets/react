@@ -34,6 +34,7 @@ export default class AddItem extends Component {
         return (
             <>
                 <div id="add-form">
+                    <h1>Add new contact:</h1>
                     <form className="form-group mt-4" onSubmit={this.onSubmitContact}>
                         <input
                             name="name"
