@@ -1,12 +1,17 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Card from "../Card";
 import AddItem from "../AddItem";
 import Navbar from "../NavBar";
 import Header from "../Header";
+import Menu from "../Menu";
 
 export default class App extends Component {
   state = {
     selected: false,
+    query: "",
+    onlyFavorite: false,
     data: [
       {
         id: 1,
@@ -68,8 +73,24 @@ export default class App extends Component {
     });
   };
 
-  getUsers = () => {
-    return this.state.data.map((el) => {
+  onFilter = () => {
+    if (this.state.query === "" && this.state.onlyFavorite == false) {
+      return this.getUsers(this.state.data);
+    }
+
+    let users = this.state.data.filter((x) => {
+      return x.favourite == this.state.onlyFavorite;
+    });
+
+    return this.getUsers(users.filter((x) => {
+      return (x.name.toLowerCase().includes(this.state.query));
+    }));
+  };
+
+  getUsers = (users) => {
+
+
+    return users.map((el) => {
       return (
         <Card
           onDelete={() => this.onDelete(el.id)}
@@ -85,14 +106,14 @@ export default class App extends Component {
     });
   };
 
-  onAdd = () => {
+  onAdd = (item) => {
     let newIndex = Math.max.apply(Math, this.state.data.map(function (o) { return o.id; })) + 1;
     this.setState(({ data }) => {
       return {
         data: [...data, {
           id: newIndex,
-          name: `Ivanko ${newIndex}`,
-          age: Math.floor(Math.random() * 80),
+          name: item.name,
+          age: item.age,
           favourite: Math.floor(Math.random()),
           social: {
             fb: "https://fb.com/#",
@@ -102,22 +123,53 @@ export default class App extends Component {
     });
   };
 
-  search = (text) => {
-    console.log(text);
+  search = (query) => {
+    this.setState({
+      query: query
+    });
+  }
+
+  onFavoriteChange = (favouriteEnable) => {
+    this.setState({
+      onlyFavorite: favouriteEnable
+    });
   }
 
   render() {
     return (
       <div className="container">
-        <Navbar
-          searchAction={() => this.search(test)} />
-        <Header
-          countContacts={this.state.data.length}
-          countFavorites={this.state.data.filter(x => x.favourite == true).length}
-        />
-        <div className="row">{this.getUsers()}</div>
-        <AddItem
-          onAdd={() => this.onAdd()} />
+        <Router>
+          <Menu />
+          <Switch>
+            <Route
+              path="/"
+              exact>
+              <>
+                <Navbar
+                  onSearchQueryChange={this.search}
+                  favoriteAction={this.onFavoriteChange} />
+                <Header
+                  countContacts={this.state.data.length}
+                  countFavorites={this.state.data.filter(x => x.favourite == true).length}
+                />
+                <div className="row">
+                  {this.onFilter()}
+                </div>
+              </>
+            </Route>
+            <Route
+              path="/add"
+              exact>
+              <AddItem
+                onAdd={this.onAdd} />
+            </Route>
+            <Route
+              path="/about"
+              render={() => <h1>About us: tel: 93963965</h1>}>
+            </Route>
+            <Route render={() => <h1>404. Not found</h1>} />
+          </Switch>
+        </Router>
       </div>
     );
   };

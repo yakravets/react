@@ -6,10 +6,10 @@ const Header = ({ countContacts, countFavorites }) => {
     <>
       <div className="row col-12">
         <div className="alert alert-primary col-6" role="alert">
-          <h3>Count contacts: <span class="badge bg-secondary">{countContacts}</span></h3>
+          <h3>Count contacts: <span className="badge bg-secondary">{countContacts}</span></h3>
         </div>
         <div className="alert alert-primary col-6" role="alert">
-          <h3>Favorite contacts: <span class="badge bg-secondary">{countFavorites}</span></h3>
+          <h3>Favorite contacts: <span className="badge bg-secondary">{countFavorites}</span></h3>
         </div>
       </div>
     </>

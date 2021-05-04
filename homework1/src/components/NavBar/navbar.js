@@ -11,7 +11,7 @@ export default class Navbar extends Component {
             <>
                 <div id="nav_bar">
                     <form className="d-flex">
-                        <Search searchAction={this.props.searchAction}/>
+                        <Search onSearchQueryChange={this.props.onSearchQueryChange}/>
                         <FavoriteMenu favoriteAction={this.props.favoriteAction}/>
                     </form>
                 </div>
