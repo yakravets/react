@@ -1,0 +1,8 @@
+.profile_row{
+    background-color: rgb(230, 206, 175);
+    padding: 10px;
+    margin: 5px;
+    border: 1px #eee solid;
+    border-radius: 10px;
+    display: flex;
+}

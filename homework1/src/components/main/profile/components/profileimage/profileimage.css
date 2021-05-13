@@ -1,0 +1,11 @@
+img.profileImage{
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+}
+
+.photo_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
